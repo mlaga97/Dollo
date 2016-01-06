@@ -4,7 +4,7 @@ metal_rod_size = 9;
 support = true;
 //min number of units is 2
 //max is however large your printer can print
-units = 4;
+//units = 4;
 
 module extention(){
 	
