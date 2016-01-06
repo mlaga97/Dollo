@@ -1,7 +1,7 @@
 include <include.scad>;
 include <globals.scad>;
 include <corner.scad>;
-include <extention.scad>;
+include <extension.scad>;
 
 extention();
 translate([0,(obj_leg*-3),0]) basic_corner();
