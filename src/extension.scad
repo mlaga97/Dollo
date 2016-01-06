@@ -4,7 +4,7 @@ metal_rod_size = 9;
 support = true;
 //min number of units is 2
 //max is however large your printer can print
-//units = 4;
+units = 4;
 
 module extention(){
 	
@@ -37,8 +37,8 @@ module extention(){
 	for (y = [0:units-2]) // two iterations, z = -1, z = 1
 	{
 		translate([15, (y*30)+15, 15]){
-					//translate([0,15,-16]) cylinder(h=35, d=18);
-					rotate([0,90,0]) translate([0,15,-16]) cylinder(h=35, d=18);
+					translate([0,15,-16]) cylinder(h=35, d=18);
+					//rotate([0,90,0]) translate([0,15,-16]) cylinder(h=35, d=18);
 		}
 	}
 	}
