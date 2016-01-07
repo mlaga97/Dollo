@@ -64,16 +64,16 @@ STLs/rack2.stl: src/rack.scad src/rack.dxf src/include.scad src/globals.scad
 	${OPENSCAD} -o STLs/rack2.stl -D units=2 src/rack.scad
 
 STLs/rack3.stl: src/rack.scad src/rack.dxf src/include.scad src/globals.scad
-	${OPENSCAD} -o STLs/rack3.stl -D units=4 src/rack.scad
+	${OPENSCAD} -o STLs/rack3.stl -D units=3 src/rack.scad
 
 STLs/rack4.stl: src/rack.scad src/rack.dxf src/include.scad src/globals.scad
-	${OPENSCAD} -o STLs/rack4.stl -D units=6 src/rack.scad
+	${OPENSCAD} -o STLs/rack4.stl -D units=4 src/rack.scad
 
 STLs/rack5.stl: src/rack.scad src/rack.dxf src/include.scad src/globals.scad
-	${OPENSCAD} -o STLs/rack5.stl -D units=8 src/rack.scad
+	${OPENSCAD} -o STLs/rack5.stl -D units=5 src/rack.scad
 
 STLs/rack6.stl: src/rack.scad src/rack.dxf src/include.scad src/globals.scad
-	${OPENSCAD} -o STLs/rack6.stl -D units=10 src/rack.scad
+	${OPENSCAD} -o STLs/rack6.stl -D units=6 src/rack.scad
 
 ########################################################################
 #####                          SCAD Files                          #####
