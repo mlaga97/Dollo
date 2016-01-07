@@ -4,6 +4,7 @@ include <include.scad>;
 tail_depth = 55;
 tail_depth_2 = -10;
 thickness = 24;
+support = true;
 
 head_width = 6.5;
 module y_mount_added(){
@@ -23,9 +24,12 @@ module y_mount_taken(){
 
 	cube([head_width,head_width,51*2], center=true);
 }
-difference(){
-	translate([0,-thickness/2-12.5,15]) bow_support();
-	#translate([0,-thickness/2-12.5,25]) cube([50,10,20], center=true);
+
+//support
+if (support==true)
+{
+	translate([15,-24,5/2]) cylinder(h=5, d=6, center=true);
+	translate([-15,-24,5/2]) cylinder(h=5, d=6, center=true);
 }
 
 difference(){
