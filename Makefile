@@ -1,6 +1,6 @@
 OPENSCAD=/usr/bin/openscad
 
-all: STLs/rack2.stl STLs/rack3.stl STLs/rack4.stl STLs/rack5.stl STLs/rack6.stl STLs/hotend_mount.stl STLs/motor_mount_left.stl STLs/motor_mount_right.stl STLs/x_endstop.stl STLs/toolhead_mount.stl STLs/z_center_gear.stl STLs/z_idler_gear.stl STLs/xy_gear.stl STLs/bowtie.stl STLs/corner.stl STLs/endstop.stl STLs/extension2.stl STLs/extension3.stl STLs/extension4.stl STLs/extension5.stl STLs/extension6.stl STLs/z_large_gear.stl STLs/twist_corner.stl
+all: STLs/rack2.stl STLs/rack3.stl STLs/rack4.stl STLs/rack5.stl STLs/rack6.stl STLs/hotend_mount.stl STLs/motor_mount_left.stl STLs/motor_mount_right.stl STLs/x_endstop.stl STLs/toolhead_mount.stl STLs/z_center_gear.stl STLs/z_idler_gear.stl STLs/xy_gear.stl STLs/bowtie.stl STLs/corner.stl STLs/endstop.stl STLs/extension2.stl STLs/extension3.stl STLs/extension4.stl STLs/extension5.stl STLs/extension6.stl STLs/z_large_gear.stl STLs/twist_corner.stl STLs/platform.stl
 
 clean:
 	rm STLs/*.stl
@@ -77,6 +77,9 @@ STLs/rack5.stl: src/rack.scad src/rack.dxf src/include.scad src/globals.scad
 
 STLs/rack6.stl: src/rack.scad src/rack.dxf src/include.scad src/globals.scad
 	${OPENSCAD} -o STLs/rack6.stl -D units=6 src/rack.scad
+
+STLs/platform.stl: src/platform.scad src/include.scad src/globals.scad
+	${OPENSCAD} -o STLs/platform.stl src/platform.scad
 
 ########################################################################
 #####                          SCAD Files                          #####

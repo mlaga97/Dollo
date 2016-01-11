@@ -5,7 +5,7 @@ $fn = 40;
 *****                                Configuration                              *****
 *******************************************************************************/
 
-mount_hole_diameter = 21.5;
+mount_hole_diameter = 22.5;
 
 // Gear Configuration
 gear_twist = 0; // Set for Herringbone
