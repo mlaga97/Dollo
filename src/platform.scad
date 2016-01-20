@@ -69,7 +69,6 @@ module cap() {
             cube([3.5,41,17+2]);
         
         translate([0,0,11]) {
-            cylinder(d=23,h=60);
             translate([-31/2,-31/2,0])
                 cylinder(d=3.5,h=60);
             translate([-31/2,31/2,0])
@@ -107,6 +106,9 @@ module base() {
             cylinder(d=6, h=15, $fn=20);
         }
         
+        translate([0,0,-1]) {
+            cylinder(d=23,h=10+2);
+        }
         translate([35,0,-1]) {
             cylinder(d=22.5,h=2+10+2.5);
             cylinder(d1=25.5,d2=22.5,h=3);
