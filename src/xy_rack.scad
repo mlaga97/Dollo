@@ -1,5 +1,8 @@
 include <include.scad>;
 include <globals.scad>;
+use <GDMUtils.scad>
+use <publicDomainGearV1.1.scad>
+use <sliders.scad>
 
 /*******************************************************************************
 *****                                Configuration                              *****
@@ -8,17 +11,17 @@ include <globals.scad>;
 obj_height = 40;
 tail_depth = 8;
 diameter = 4;   // Configure Roundness
+width = 30;
 
 /*******************************************************************************
 *****                                    Build                                  *****
 *******************************************************************************/
 
 /* Uncomment to test */
-//units = 3;
+//units = 6;
 
 /* Leave ONE of these uncommented */
-//modular_rack();
-aligned_modular_rack();
+modular_rack();
 
 /*******************************************************************************
 *****                                  Modules                                 *****
@@ -79,91 +82,73 @@ module proto_rack() {
         }
     }
     
-    // Build Rack
-    // TODO: Fix DXF file to eliminate this hack
-    for(rack_length=[1:units*30/20+1]) {
-        translate([rack_length*20-15,0,0])
-            full_rack();
-    }
-    
     // Build Rack Base
     for(rack_length=[1:units]) {
         difference(){
-            translate([30*rack_length-15,6,0]) cube([30,8,40], center=true);
+            translate([30*rack_length-15,6,0]) cube([30,8,width], center=true);
         }
     }
 }
 
 // Modular Herringbone Rack
 module modular_rack() {
-    intersection() {
-        // Add Rails
-        translate([units*30/2,0,0])
-            rounded_cube(30*units,20,40,$fn=50);
-        
-        difference() {
-            // Rack Body
-            translate([0,0,0])
-                proto_rack(units=units); // Extra room to play with
-
-            // Add Ties
-            for(rack_length=[1:units]) {
-                translate([30*rack_length-15,2,0])
-                    tie_template();
-            }
-        }
-    }
-}
-
-// Self-Aligning Herrringbone Rack
-module aligned_modular_rack() {
-    intersection() {
-        // Rails
-        translate([units*30/2,0,0])
-            rounded_cube(30*units+30,20,40,$fn=50);
-        
-        intersection() {
-            translate([-7.5,0,0])
+    translate([0,0,2])
+        rotate([-90,0,0])
+            intersection() {
+                // Add Rails
+                translate([units*30/2,0,0])
+                    rounded_cube(30*units,20,width,$fn=50);
+                
                 difference() {
                     // Rack Body
-                    translate([-30,0,0])
-                        proto_rack(units=units+2); // Extra room to play with
+                    translate([0,0,0])
+                        proto_rack(units=units); // Extra room to play with
 
                     // Add Ties
                     for(rack_length=[1:units]) {
-                        translate([30*rack_length,2,0])
+                        translate([30*rack_length-15,2,0])
                             tie_template();
                     }
                 }
-            
-            // Allow Chaining
-            difference() {
-                union(){
-                    // Base Shape
-                    translate([30*units/2+15,0,0])
-                        rounded_cube(30*units,20,40,$fn=50);
-
-                    // Pointy Head
-                    translate([0,-5,0])
-                        rotate([0,25,0])
-                            cube([30,30,30]);
-                    mirror([0,0,1])
-                        translate([0,-5,0])
-                            rotate([0,25,0])
-                                cube([30,30,30]);
-                }
-
-                // Tail Piece
-                union(){
-                    translate([30*units,-5,0])
-                        rotate([0,25,0])
-                            cube([units*30,30,units*30]);
-                    mirror([0,0,1])
-                        translate([30*units,-5,0])
-                            rotate([0,25,0])
-                                cube([units*30,30,units*30]);
-                }
             }
-        }
-    }
+    
+    // Rack
+    translate([units*15,10+3,5])
+        herringbone_rack(l=units*30, h=10, tooth_size=5);
+    
+    // Rail
+    translate([units*15,-width/2+5+4,6])
+        rotate([0,0,90])
+            rail(l=units*30, w=10, h=12);
+}
+
+
+module herringbone_rack(l=100, h=10, w=10, tooth_size=5, CA=30)
+{
+    gear_backlash=0.075;
+    
+    $fa = 2;
+    $fs = 2;
+    
+	left(tooth_size/2) {
+		zflip_copy() {
+			skew_xy(xang=CA) {
+				intersection() {
+					up(h/4-0.01) {
+						left(l/2-tooth_size/2) {
+							rack(
+								mm_per_tooth=tooth_size,
+								number_of_teeth=floor(l/tooth_size),
+								thickness=h/2+0.005,
+								height=w,
+								pressure_angle=20,
+								backlash=gear_backlash
+							);
+						}
+					}
+					cube(size=[l, h*3, h*3], center=true);
+				}
+			}
+		}
+	}
 }
