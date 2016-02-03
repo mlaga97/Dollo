@@ -13,7 +13,7 @@ support = true;
 *******************************************************************************/
 
 /* Uncomment to test */
-//units = 4;
+units = 1;
 
 extension();
 
@@ -78,9 +78,23 @@ module extension() {
                     cutout();
             }
         } else {
-            // Cutout Hole
-            translate([15, 0, 15])
-                cutout();
+            difference() {
+                // Holes for Ties
+                translate([15, -15, 15]){
+                    wrap();
+                    translate([15,30,0]) cube([5,5,50],center=true);
+                    translate([-15,30,0]) cube([5,5,50],center=true);
+                    translate([0,30,15]) cube([50,5,5],center=true);
+                    translate([0,30,-15]) cube([50,5,5],center=true);
+                }
+                
+                // Tie Stopper
+                union(){
+                    translate([15.5,y*30+30,0]) cube([.5,30,30]);
+                    rotate([0,90,0])
+                        translate([-15.5,y*30+30,0]) cube([.5,30,30]);
+                }
+            }
         }
         
         // Holes
